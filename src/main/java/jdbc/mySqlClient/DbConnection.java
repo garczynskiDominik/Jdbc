@@ -1,6 +1,7 @@
 package jdbc.mySqlClient;
 
 import java.sql.*;
+import java.util.Optional;
 
 
 public class DbConnection {
@@ -10,6 +11,7 @@ public class DbConnection {
         String password = "Werbkowice12";
 
         Connection conn = null;
+        Optional<Connection> connectionOptional = Optional.of(conn);
         try {
             conn = DriverManager.
                     getConnection(connectionUrl, user, password);
@@ -17,7 +19,7 @@ public class DbConnection {
         } catch (SQLException e) {
             System.out.println("Wrong login data");
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 }

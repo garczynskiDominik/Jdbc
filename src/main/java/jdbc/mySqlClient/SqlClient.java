@@ -10,18 +10,18 @@ public class SqlClient {
         OperationInMySql operationInMySql = new OperationInMySql();
         DbConnection dbConnection = new DbConnection();
 
-       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
-       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
-       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
-       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
-       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
-       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
+//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
+//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
+//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
+//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
+//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
+//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
 
 
 
         OperationInMySql.showInformationFromDataBase(dbConnection, "towar", "*");
         OperationInMySql.insertToTableTowar(dbConnection, 34,"mama", BigDecimal.valueOf(3),4,12,"towar");
-      OperationInMySql.deleteRecordFromTable(dbConnection,31,"towar");
+        OperationInMySql.deleteRecordFromTable(dbConnection,31,"towar");
 
 
 
