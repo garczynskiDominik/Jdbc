@@ -14,7 +14,6 @@ public class SqlClient {
 //       OperationInMySql.randomValueForInsertToTowar("towar");
 //       OperationInMySql.randomValueForInsertToTowar("towar");
 
-
         // OperationInMySql.showInformationFromDataBase("towar", "*");
         //OperationInMySql.insertToTableTowar(37, "mama", BigDecimal.valueOf(3), 4, 12, "towar");
         //OperationInMySql.deleteRecordFromTable(31, "towar");
