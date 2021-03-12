@@ -2,7 +2,6 @@ package jdbc.mySqlClient;
 
 import jdbc.mySqlClient.DbConnection;
 import jdbc.mySqlClient.OperationInMySql;
-
 import java.math.BigDecimal;
 
 public class SqlClient {
