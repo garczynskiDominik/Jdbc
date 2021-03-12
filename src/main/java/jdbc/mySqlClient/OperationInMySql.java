@@ -93,5 +93,4 @@ public class OperationInMySql {
         insertToTable(counter, randomNameOfTowar, BigDecimal.valueOf(randomValueofPrice), randomValueofQuantity, randomValueOfIdFaktura, nameOfTable);
         counter++;
     }
-
 }

@@ -1,8 +1,6 @@
 package jdbc.mySqlClient;
 
 import java.sql.*;
-import java.util.Optional;
-
 
 public class DbConnection {
     public static  Connection makeConnectionToDatabase() {
