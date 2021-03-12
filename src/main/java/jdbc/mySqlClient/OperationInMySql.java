@@ -1,5 +1,7 @@
 package jdbc.mySqlClient;
 
+import com.github.javafaker.Faker;
+
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Random;
@@ -67,15 +69,9 @@ public class OperationInMySql {
         int randomValueofQuantity = random.nextInt(50 - 1) + 1;
         int valueOfWordLength = random.nextInt(8 - 1) + 1;
 
-        StringBuilder nameRandom = new StringBuilder();
-
-        for (int i = 0; i < valueOfWordLength; i++) {
-            int valueLettersFromAsci = random.nextInt(122 - 97) + 97;
-            char o = (char) valueLettersFromAsci;
-            nameRandom.append(o);
-        }
-        String randomName = nameRandom.toString();
-        insertToTableTowar(counter, randomName, BigDecimal.valueOf(randomValueofPrice), randomValueofQuantity, randomValueOfIdFaktura, nameOfTable);
+        Faker fakerNameOfTowar = new Faker();
+        String randomNameOfTowar = fakerNameOfTowar.food().ingredient();
+        insertToTableTowar(counter, randomNameOfTowar, BigDecimal.valueOf(randomValueofPrice), randomValueofQuantity, randomValueOfIdFaktura, nameOfTable);
         counter++;
     }
 
