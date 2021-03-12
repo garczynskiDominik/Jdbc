@@ -35,7 +35,7 @@ public class OperationInMySql {
         }
     }
 
-    public static void insertToTableTowar(int id, String nazwa, BigDecimal cena, int ilosc, int id_pozycja, String nameOfTable) {
+    public static void insertToTable(int id, String nazwa, BigDecimal cena, int ilosc, int id_pozycja, String nameOfTable) {
         String queryToDatabase = "INSERT INTO " + nameOfTable + " (id,nazwa,cena,ilosc,id_pozycja) VALUES (" + id + "," + "\"" + nazwa + "\"" + "," + cena + "," + ilosc + "," + id_pozycja + ");";
         try {
             Connection dbConnection = DbConnection.makeConnectionToDatabase();
@@ -46,6 +46,25 @@ public class OperationInMySql {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void insertToTablePreparedStatment(String nameOfTable, int id, String nazawa, BigDecimal cena, int ilosc, int id_pozycja) {
+        Connection dbConnection = DbConnection.makeConnectionToDatabase();
+        try {
+            String query = "INSERT INTO " + nameOfTable + "(id,nazwa,cena,ilosc,id_pozycja) VALUES (?,?,?,?,?)";
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, nazawa);
+            preparedStatement.setBigDecimal(3, cena);
+            preparedStatement.setInt(4, ilosc);
+            preparedStatement.setInt(5, id_pozycja);
+
+            preparedStatement.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
     public static void deleteRecordFromTableByIndex(int id, String nameOfTable) {
@@ -71,7 +90,7 @@ public class OperationInMySql {
 
         Faker fakerNameOfTowar = new Faker();
         String randomNameOfTowar = fakerNameOfTowar.food().ingredient();
-        insertToTableTowar(counter, randomNameOfTowar, BigDecimal.valueOf(randomValueofPrice), randomValueofQuantity, randomValueOfIdFaktura, nameOfTable);
+        insertToTable(counter, randomNameOfTowar, BigDecimal.valueOf(randomValueofPrice), randomValueofQuantity, randomValueOfIdFaktura, nameOfTable);
         counter++;
     }
 
