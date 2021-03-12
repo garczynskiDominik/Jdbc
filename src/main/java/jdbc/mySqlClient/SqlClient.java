@@ -5,8 +5,6 @@ import java.math.BigDecimal;
 public class SqlClient {
     public static void main(String[] args) {
 
-
-
 //       OperationInMySql.randomValueForInsertToTowar("towar");
 //       OperationInMySql.randomValueForInsertToTowar("towar");
 //       OperationInMySql.randomValueForInsertToTowar("towar");
