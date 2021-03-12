@@ -46,7 +46,7 @@ public class OperationInMySql {
         }
     }
 
-    public static void deleteRecordFromTable(int id, String nameOfTable) {
+    public static void deleteRecordFromTableByIndex(int id, String nameOfTable) {
         String queryToDataBase = "DELETE FROM " + nameOfTable + " WHERE id=" + id;
         Statement statement = null;
         try {
