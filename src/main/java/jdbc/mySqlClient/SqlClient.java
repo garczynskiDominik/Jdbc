@@ -7,22 +7,18 @@ import java.math.BigDecimal;
 
 public class SqlClient {
     public static void main(String[] args) {
-        OperationInMySql operationInMySql = new OperationInMySql();
-        DbConnection dbConnection = new DbConnection();
 
-//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
-//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
-//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
-//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
-//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
-//       operationInMySql.randomValueForInsertToTowar(dbConnection,"towar");
+//       OperationInMySql.randomValueForInsertToTowar("towar");
+//       OperationInMySql.randomValueForInsertToTowar("towar");
+//       OperationInMySql.randomValueForInsertToTowar("towar");
+//       OperationInMySql.randomValueForInsertToTowar("towar");
+//       OperationInMySql.randomValueForInsertToTowar("towar");
+//       OperationInMySql.randomValueForInsertToTowar("towar");
 
 
-
-        OperationInMySql.showInformationFromDataBase(dbConnection, "towar", "*");
-        OperationInMySql.insertToTableTowar(dbConnection, 34,"mama", BigDecimal.valueOf(3),4,12,"towar");
-        OperationInMySql.deleteRecordFromTable(dbConnection,31,"towar");
-
+        // OperationInMySql.showInformationFromDataBase("towar", "*");
+        //OperationInMySql.insertToTableTowar(37, "mama", BigDecimal.valueOf(3), 4, 12, "towar");
+        //OperationInMySql.deleteRecordFromTable(31, "towar");
 
 
     }
