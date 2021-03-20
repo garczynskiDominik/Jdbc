@@ -8,16 +8,15 @@ import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
-        Connection connection = JdbcUtils.getInstance().getConnection();
-
-        insertTotableRuns(connection, 3, "Tomek", 10);
-        deleteRecordFromTableRunsByIndex(connection, 3);
-        updateRecordsInRuns(connection, 3, "Zosia");
-        showAllFromRuns(connection);
+        //insertTotableRuns(3, "Tomek", 10);
+        //deleteRecordFromTableRunsByInde(connection, 3);
+        //updateRecordsInRuns(3, "Tomek");
+       // showAllFromRuns("*");
 
     }
 
-    public static void insertTotableRuns(Connection connection, int id, String nazwa, int limit) {
+    public static void insertTotableRuns(int id, String nazwa, int limit) {
+        Connection connection = JdbcUtils.getInstance().getConnection();
         String query = "INSERT INTO RUNS (ID,NAME,MEMBERS_LIMIT) VALUES (?,?,?)";
         PreparedStatement preparedStatement = null;
         try {
@@ -32,7 +31,8 @@ public class Main {
         }
     }
 
-    public static void deleteRecordFromTableRunsByIndex(Connection connection, int id) {
+    public static void deleteRecordFromTableRunsByIndex(int id) {
+        Connection connection = JdbcUtils.getInstance().getConnection();
         String queryToDataBase = "DELETE FROM RUNS  WHERE id=" + id;
         Statement statement = null;
         try {
@@ -44,26 +44,43 @@ public class Main {
         }
     }
 
-    public static void updateRecordsInRuns(Connection connection, int id, String name) {
-        String query = "UPDATE RUNS SET NAME=\"" + name + "\" WHERE ID=" + id + ";";
-        System.out.println(query);
-        Statement statement = null;
+    public static void updateRecordsInRuns(int id, String name) {
+        Connection connection = JdbcUtils.getInstance().getConnection();
+        String query = "UPDATE RUNS SET NAME= ? WHERE ID= ?";
+        PreparedStatement preparedStatement = null;
         try {
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, id);
+            preparedStatement.execute();
+            preparedStatement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public static void showAllFromRuns(Connection connection) {
+    public static void showAllFromRuns(String withColumn) {
+
+
+        Connection connection = JdbcUtils.getInstance().getConnection();
         String query = "SELECT *FROM RUNS";
+
+
+//        Statement st = connection.createStatement();
+//        ResultSet rs = st.executeUpdate(query);
+//        while (rs.next()){
+//            System.out.println("id=%d, name %s, members limit=%d\n");
+//            rs.getInt("id"),
+//            rs.getString("name"),
+//            rs.getInt("members_limit");
+//        }
+
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
             int valeuOfcolumn = ps.getMetaData().getColumnCount();
-            String withColumn = "*";
+
 
 
             while (rs.next()) {
@@ -90,9 +107,13 @@ public class Main {
  * ZADANIE 3
  * Utworzyć nową paczkę pl.sdacademy.entity, a następnie utworzyć w niej klasę: Run
  * wraz z odpowiadającymi im polom (o odpowiednich typach) z tabeli bazy danych.
+ * <p>
+ * <p>
  * ZADANIE 4
  * Utworzyć nową paczkę pl.sdacademy.database.dao i dodać w niej interfejs RunDao.
  * Zdefiniować w nim metody: save, update, findAll, findById, deleteById.
+ * <p>
+ * <p>
  * ZADANIE 5
  * Utworzyć nową paczkę pl.sdacademy.database.jdbc.daoimpl w której umieścić
  * klasę RunDaoImpl implementującą wcześniej zdefiniowane interfejs. Następnie
