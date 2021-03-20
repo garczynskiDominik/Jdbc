@@ -19,7 +19,7 @@ class RunDaoImplTest {
 
     @Test
     void save() {
-        runDao.save();
+
     }
 
     @Test
