@@ -1,4 +1,4 @@
-package jdbc.mySqlClient;
+package jdbcBasic.mySqlClient;
 
 import com.github.javafaker.Faker;
 
