@@ -2,16 +2,21 @@ package jdbcBasic.worksJDBC.dao;
 
 import jdbcBasic.worksJDBC.entity.Run;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface RunDao {
-    void save(Run run); //C
+    void save(Run run) throws SQLException; //C
 
-    List<Run> findAll(); //R
+    List<Run> findAll() throws SQLException; //R
 
-    Run findById(int id); //R
+    Run findById(int id) throws SQLException; //R
 
-    void update(Run run); //U
+    void update(Run run) throws SQLException; //U
 
-    void deleteBy(int id); //D
+    void deleteById(int id) throws SQLException; //D
+
+    List<Run> findByNameFragment(String fragment) throws SQLException;
+
+    List<Run> findByMembersLimitRange(int min, int max) throws SQLException;
 }

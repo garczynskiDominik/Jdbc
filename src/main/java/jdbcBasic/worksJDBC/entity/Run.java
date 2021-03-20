@@ -38,4 +38,13 @@ public class Run {
     public void setMembersLimit(int membersLimit) {
         this.membersLimit = membersLimit;
     }
+
+    @Override
+    public String toString() {
+        return "Run{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", membersLimit=" + membersLimit +
+                '}';
+    }
 }
