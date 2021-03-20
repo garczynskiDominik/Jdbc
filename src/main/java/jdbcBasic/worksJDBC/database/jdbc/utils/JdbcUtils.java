@@ -9,38 +9,35 @@ import java.util.Properties;
 
 public class JdbcUtils {
 
-    private static final JdbcUtils instance = new JdbcUtils();
-    private DbConnection dbConnection;
-
-
-    private JdbcUtils() {
-
-    }
+    private static  JdbcUtils instance;
+    private Connection dBConnection;
 
     public static JdbcUtils getInstance() {
+        if (instance==null){
+            instance= new JdbcUtils();
+        }
         return instance;
     }
 
-    public Connection getConnection() {
-        String connectionString = "jdbc:mysql://localhost:3306/runcenter?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true";
-        String dbPassword = "Werbkowice12";
-        String dbUser = "nowy";
-
-        Properties prop = new Properties();
-        prop.put("password", dbPassword);
-        prop.put("user", dbUser);
-        prop.put("serverTimezone", "Europe/Warsaw");
-        Connection dBConnection = null;
+    private JdbcUtils() {
         try {
+            String connectionString = "jdbc:mysql://localhost:3306/runcenter";
+            String dbPassword = "Werbkowice12";
+            String dbUser = "nowy";
+
+            Properties prop = new Properties();
+            prop.put("password", dbPassword);
+            prop.put("user", dbUser);
+            prop.put("serverTimezone", "Europe/Warsaw");
             dBConnection = DriverManager.getConnection(connectionString, prop);
-            return dBConnection;
+
         } catch (
                 SQLException throwables) {
-            System.out.println("nie polaczono");
             throwables.printStackTrace();
         }
-        return null;
     }
 
-
+    public Connection getConnection() {
+        return  dBConnection;
+    }
 }

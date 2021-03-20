@@ -4,6 +4,7 @@ import jdbcBasic.worksJDBC.dao.RunDao;
 import jdbcBasic.worksJDBC.database.jdbc.utils.JdbcUtils;
 import jdbcBasic.worksJDBC.entity.Run;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,29 +14,29 @@ public class RunDaoImpl implements RunDao {
     @Override
     public void save(Run run) throws SQLException {
 
-        Connection connection = JdbcUtils.getInstance().getConnection();
         String query = "INSERT INTO RUNS (ID,NAME,MEMBERS_LIMIT) VALUES (?,?,?)";
-        PreparedStatement preparedStatement = null;
+        PreparedStatement statement = JdbcUtils
+                .getInstance()
+                .getConnection()
+                .prepareStatement(query);
 
-        preparedStatement = connection.prepareStatement(query);
+        statement.setInt(1, run.getId());
+        statement.setString(2, run.getName());
+        statement.setInt(3, run.getMembersLimit());
 
-        preparedStatement.setInt(1, run.getId());
-        preparedStatement.setString(2, run.getName());
-        preparedStatement.setInt(3, run.getMembersLimit());
-
-        preparedStatement.execute();
-        preparedStatement.close();
+        statement.execute();
+        statement.close();
     }
-
 
     @Override
     public List<Run> findAll() throws SQLException {
-        Connection connection = JdbcUtils.getInstance()
-                .getConnection();
         String queryToDataBase = "SELECT* FROM RUNS";
-        Statement statement = connection.createStatement();
+        PreparedStatement statement = JdbcUtils
+                .getInstance()
+                .getConnection()
+                .prepareStatement(queryToDataBase);
 
-        ResultSet rs = statement.executeQuery(queryToDataBase);
+        ResultSet rs = statement.executeQuery();
         List<Run> runs = new ArrayList<>();
         Run run = null;
         while (rs.next()) {
@@ -46,11 +47,13 @@ public class RunDaoImpl implements RunDao {
 
     @Override
     public Run findById(int id) throws SQLException {
-        Connection connection = JdbcUtils.getInstance().getConnection();
-        String queryToDataBase = "SELECT* FROM RUNS WHERE id=" + id;
-        Statement statement = connection.createStatement();
 
-        ResultSet rs = statement.executeQuery(queryToDataBase);
+        String query = "SELECT* FROM RUNS WHERE id=" + id;
+        PreparedStatement statement = JdbcUtils
+                .getInstance()
+                .getConnection()
+                .prepareStatement(query);
+        ResultSet rs = statement.executeQuery();
 
         Run run = null;
         if (rs.next()) {
@@ -64,16 +67,18 @@ public class RunDaoImpl implements RunDao {
 
     @Override
     public void update(Run run) throws SQLException {
-        Connection connection = JdbcUtils.getInstance().getConnection();
-        String query = "UPDATE RUNS SET NAME= ?, MEMBERS_LIMIT= ? WHERE ID= ?";
-        PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, run.getName());
-            preparedStatement.setInt(2, run.getMembersLimit());
-            preparedStatement.setInt(3, run.getId());
-            preparedStatement.execute();
-            preparedStatement.close();
+            String query = "UPDATE RUNS SET NAME= ?, MEMBERS_LIMIT= ? WHERE ID= ?";
+            PreparedStatement statement = JdbcUtils
+                    .getInstance()
+                    .getConnection()
+                    .prepareStatement(query);
+
+            statement.setString(1, run.getName());
+            statement.setInt(2, run.getMembersLimit());
+            statement.setInt(3, run.getId());
+            statement.execute();
+            statement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -81,12 +86,14 @@ public class RunDaoImpl implements RunDao {
 
     @Override
     public void deleteById(int id) throws SQLException {
-        Connection connection = JdbcUtils.getInstance().getConnection();
-        String queryToDataBase = "DELETE FROM RUNS  WHERE id=" + id;
-        Statement statement = null;
         try {
-            statement = connection.createStatement();
-            statement.executeUpdate(queryToDataBase);
+            String query = "DELETE FROM RUNS  WHERE id=" + id;
+            PreparedStatement statement = JdbcUtils
+                    .getInstance()
+                    .getConnection()
+                    .prepareStatement(query);
+
+            statement.executeUpdate(query);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -95,22 +102,22 @@ public class RunDaoImpl implements RunDao {
 
     @Override
     public List<Run> findByNameFragment(String fragment) throws SQLException {
+        String query = "SELECT * FROM runs WHERE name LIKE ?";
+        System.out.println(query);
+        PreparedStatement statement = JdbcUtils
+                .getInstance()
+                .getConnection()
+                .prepareStatement(query);
 
-        Connection connection = JdbcUtils.getInstance()
-                .getConnection();
-        String query = "SELECT * FROM runs WHERE name LIKE CONCAT('%',?,'%')";
-        PreparedStatement preparedStatement = null;
-        preparedStatement = connection.prepareStatement(query);
-
-        preparedStatement.setString(1, fragment);
-        ResultSet rs = preparedStatement.executeQuery();
+        statement.setString(1, "%" + fragment + "%");
+        ResultSet rs = statement.executeQuery();
         List<Run> runs = new ArrayList<>();
         while (rs.next()) {
             runs.add(new Run(rs.getInt("id"),
                     rs.getString("name"),
                     rs.getInt("members_limit")));
         }
-        preparedStatement.close();
+        statement.close();
         return runs;
 
 
@@ -118,14 +125,18 @@ public class RunDaoImpl implements RunDao {
 
     @Override
     public List<Run> findByMembersLimitRange(int min, int max) throws SQLException {
-        Connection connection = JdbcUtils.getInstance()
-                .getConnection();
-        String query = "SELECT * FROM RUNS WHERE MEMBERS_LIMIT BETWEEN " + min + " AND " + max + ";";
-        System.out.println(query);
 
-        Statement statement = connection.createStatement();
+        String query = "SELECT * FROM RUNS WHERE MEMBERS_LIMIT BETWEEN ? AND ?";
 
-        ResultSet rs = statement.executeQuery(query);
+        PreparedStatement statement = JdbcUtils
+                .getInstance()
+                .getConnection()
+                .prepareStatement(query);
+
+        statement.setInt(1, min);
+        statement.setInt(2, max);
+
+        ResultSet rs = statement.executeQuery();
 
         List<Run> runs = new ArrayList<>();
         Run run = null;

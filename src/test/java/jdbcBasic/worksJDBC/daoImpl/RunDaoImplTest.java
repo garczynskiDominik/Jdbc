@@ -18,14 +18,13 @@ class RunDaoImplTest {
 
     @BeforeEach
     void clearTable() throws SQLException {
-        Connection connection = JdbcUtils
+        Statement statement = JdbcUtils
                 .getInstance()
-                .getConnection();
-        Statement st = connection.createStatement();
-        st.executeUpdate("Delete From runs");
-        st.close();
+                .getConnection()
+                .createStatement();
+        statement.executeUpdate("DELETE FROM runs");
+        statement.close();
     }
-
 
     @Test
     void save() {

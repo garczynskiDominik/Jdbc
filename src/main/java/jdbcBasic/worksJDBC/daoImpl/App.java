@@ -12,7 +12,7 @@ public class App {
 //        runDao.save(new Run(2,"elo",100));
 
 
-        List<Run> list = runDao.findByNameFragment("%m%");
+        List<Run> list = runDao.findByMembersLimitRange(3,6);
 
         list.forEach(System.out::println);
     }
